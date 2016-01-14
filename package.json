@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "broc": "rm -rf dist && broccoli build dist",
-    "setup": "./scripts/setup.js"
+    "broc": "rm -rf dist && broccoli build dist"
+  },
+  "bin": {
+    "broccoli-react-skeleton": "./scripts/install.js"
   },
   "author": "Sean McCollum <anincrediblyshortname@gmail.com>",
   "license": "ISC",
@@ -20,5 +22,9 @@
     "broccoli-merge-trees": "^1.1.1",
     "react": "^0.14.6",
     "react-dom": "^0.14.6"
+  },
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "ncp": "^2.0.0"
   }
 }
