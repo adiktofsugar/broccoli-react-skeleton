@@ -1,15 +1,9 @@
 {
-  "name": "receipt-splitter",
-  "description": "",
-  "main": "index.js",
+  "name": "broccoli-react-skeleton",
   "authors": [
     "Sean McCollum <anincrediblyshortname@gmail.com>"
   ],
   "license": "ISC",
-  "moduleType": [
-    "amd"
-  ],
-  "homepage": "",
   "private": true,
   "dependencies": {
     "require": "http://requirejs.org/docs/release/2.1.22/minified/require.js",
