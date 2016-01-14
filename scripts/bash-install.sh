@@ -42,4 +42,5 @@ npm install --production
 { popd; } >/dev/null
 cd "$project_location"
 $download_path/scripts/install.js
-
+rm -rf "$download_path"
+echo "Now npm install and bower install on this project and you should be ready to go!"

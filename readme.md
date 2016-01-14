@@ -24,9 +24,6 @@ If you want to invoke the command without actually being in the directory, then
 curl https://raw.githubusercontent.com/adiktofsugar/broccoli-react-skeleton/master/scripts/bash-install.sh | bash -s -- path/to/project
 ```
 
-## Contribute
-It would be awesome if you know of a better way to do this. I don't like globally installing things if I can help it and the local way isn't great.
-
 ## Todo
 - Add r.js to package it for production
 - Add uglifyJS to minify it for production
