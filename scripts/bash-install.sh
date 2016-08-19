@@ -1,18 +1,21 @@
 #!/bin/bash -eu
 set -o pipefail
 url="git@github.com:adiktofsugar/broccoli-react-skeleton.git"
+install_after=
 project_location=
 usage="
-bash-install [-h][-u <url>][project-location]
+bash-install [-h][-i][-u <url>][project-location]
   -h - help
+  -i - run npm install; bower install after install.js has run
   -u <url> - where the broccoli-react-skeleton is located. will git clone whatever url is passed (defaults to $url)
   project-location - where your project is. defaults to the current directory
 Downloads the git repo and runs the install in the current directory
 "
 
-while getopts ":hu:" opt; do
+while getopts ":hiu:" opt; do
     case "$opt" in
         h) echo "$usage"; exit;;
+        i) install_after=true;;
         u) url="$OPTARG";;
     esac
 done
@@ -43,4 +46,9 @@ npm install --production
 cd "$project_location"
 $download_path/scripts/install.js
 rm -rf "$download_path"
-echo "Now npm install and bower install on this project and you should be ready to go!"
+if [[ $install_after ]]; then
+  echo "Running npm install; bower install"
+  npm install; bower install
+else
+  echo "Now npm install and bower install on this project and you should be ready to go!"
+fi

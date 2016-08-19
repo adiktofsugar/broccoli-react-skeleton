@@ -3,9 +3,8 @@ var usage = [
     'Usage: setup [-h][-d]',
     '   -h - help',
     '   -d - dry run',
-    'Modifies package.json to have correct dependencies',
-    '   sets up folder and file structure, and',
-    '   modifies bower.json to have correct dependencies, or creates'
+    'Modifies package.json and bower.json to have correct dependencies',
+    '   and copies the src folder and broccoli support files'
 ].join("\n");
 
 var args = require('minimist')(process.argv.slice(2), {
@@ -39,6 +38,9 @@ function readJsonFromFile(root, filepath) {
 function writeJsonToFile(root, filepath, json) {
     var string = JSON.stringify(json, null, 4);
     fs.writeFileSync(path.join(root, filepath), string);
+}
+function copyFile(fromFilepath, toFilepath) {
+    fs.writeFileSync(toFilepath, fs.readFileSync(fromFilepath, 'utf-8'));
 }
 var packageJson = readJsonFromFile(projectRoot, 'package.json');
 var bowerJson = readJsonFromFile(projectRoot, 'bower.json');
@@ -77,7 +79,7 @@ if (dryRun) {
     console.log(JSON.stringify(hostPackageJson, null, 4));
     console.log("Would write bower.json as follows");
     console.log(JSON.stringify(hostBowerJson, null, 4));
-    console.log("Would copy the app directory and Brocfile.js")
+    console.log("Would copy the src directory, Brocfile.js, broccoli-eslint.js, and build.js")
     done();
 } else {
     console.log("writing host files");
@@ -85,14 +87,33 @@ if (dryRun) {
     console.log("..wrote package.json");
     writeJsonToFile(hostProjectRoot, 'bower.json', hostBowerJson);
     console.log("..wrote bower.json");
-    fs.writeFileSync(
-        path.join(hostProjectRoot, 'Brocfile.js'),
-        fs.readFileSync(path.join(projectRoot, 'Brocfile.js'), 'utf-8')
-    );
+
+    // Now the broccoli-related files
+    copyFile(
+        path.join(projectRoot, 'Brocfile.js'),
+        path.join(hostProjectRoot, 'Brocfile.js'));
     console.log("..wrote Brocfile.js");
-    ncp(path.join(projectRoot, 'app'), path.join(hostProjectRoot, 'app'), function (error) {
+    
+    // the build.sh only gets copied if it doesn't exist, since that's 
+    // what's used to configure the build process
+    var buildWrapperPath = path.join(hostProjectRoot, 'build.sh');
+    var buildWrapperExists = fs.existsSync(buildWrapperPath);
+    if (!buildWrapperExists) {
+        copyFile(
+            path.join(projectRoot, 'build.sh'),
+            buildWrapperPath);
+        console.log("..wrote build.sh");
+    }
+    copyFile(
+        path.join(projectRoot, 'broccoli-eslint.js'),
+        path.join(hostProjectRoot, 'broccoli-eslint.js'));
+    copyFile(
+        path.join(projectRoot, 'broccoli-build.js'),
+        path.join(hostProjectRoot, 'broccoli-build.js'));
+    console.log("..wrote broccoli-build.js");
+    ncp(path.join(projectRoot, 'src'), path.join(hostProjectRoot, 'src'), function (error) {
         if (error) return done(error);
-        console.log("..copied app directory");
+        console.log("..copied src directory");
         done();
     })
 }

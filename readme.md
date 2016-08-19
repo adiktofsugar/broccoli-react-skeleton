@@ -7,7 +7,7 @@ mkdir my-new-project
 cd my-new-project
 npm init -y
 ```
-You can use this in an existing project too, but it copies the Brocfile.js and app directories in this package, so you should back those up first.
+You can use this in an existing project too, but it copies the Brocfile.js and src directories in this package, so you should back those up first.
 
 ### Run the script from this package
 ```
