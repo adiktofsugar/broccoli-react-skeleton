@@ -13,7 +13,10 @@ var media = startEngine.MyProcess(
         cwd: projectRoot
     },
     {
-        color: chalk.yellow
+        color(header) {
+            // here you'd use chalk.yellow or something
+            return header;
+        }
     });
 
 startEngine.run([media]);
