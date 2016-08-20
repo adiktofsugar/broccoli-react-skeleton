@@ -94,15 +94,15 @@ if (dryRun) {
         path.join(hostProjectRoot, 'Brocfile.js'));
     console.log("..wrote Brocfile.js");
     
-    // the build.sh only gets copied if it doesn't exist, since that's 
+    // the start.js only gets copied if it doesn't exist, since that's 
     // what's used to configure the build process
-    var buildWrapperPath = path.join(hostProjectRoot, 'build.sh');
+    var buildWrapperPath = path.join(hostProjectRoot, 'start.js');
     var buildWrapperExists = fs.existsSync(buildWrapperPath);
     if (!buildWrapperExists) {
         copyFile(
-            path.join(projectRoot, 'build.sh'),
+            path.join(projectRoot, 'start.js'),
             buildWrapperPath);
-        console.log("..wrote build.sh");
+        console.log("..wrote start.js");
     }
     copyFile(
         path.join(projectRoot, 'broccoli-eslint.js'),
