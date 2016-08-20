@@ -107,10 +107,6 @@ if (dryRun) {
     copyFile(
         path.join(projectRoot, 'broccoli-eslint.js'),
         path.join(hostProjectRoot, 'broccoli-eslint.js'));
-    copyFile(
-        path.join(projectRoot, 'broccoli-build.js'),
-        path.join(hostProjectRoot, 'broccoli-build.js'));
-    console.log("..wrote broccoli-build.js");
     ncp(path.join(projectRoot, 'src'), path.join(hostProjectRoot, 'src'), function (error) {
         if (error) return done(error);
         console.log("..copied src directory");

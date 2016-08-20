@@ -4,7 +4,7 @@ var projectRoot = path.resolve(__dirname);
 var startEngine = require('start-engine');
 
 var media = startEngine.MyProcess(
-    'broccoli-build.js',
+    require.resolve('broccoli-watch'),
     {
         args: ["dist"],
         uid: "media",
