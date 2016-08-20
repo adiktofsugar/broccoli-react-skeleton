@@ -2,7 +2,7 @@ var path = require('path');
 var babel = require('broccoli-babel-transpiler');
 var mergeTrees = require('broccoli-merge-trees');
 var Funnel = require('broccoli-funnel');
-var ESLinter = require('./broccoli-eslint');
+var ESLinter = require('broccoli-eslint-alt');
 var writeFile = require('broccoli-file-creator');
 
 var index = new Funnel('src', {

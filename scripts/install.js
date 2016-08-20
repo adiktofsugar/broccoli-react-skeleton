@@ -79,7 +79,7 @@ if (dryRun) {
     console.log(JSON.stringify(hostPackageJson, null, 4));
     console.log("Would write bower.json as follows");
     console.log(JSON.stringify(hostBowerJson, null, 4));
-    console.log("Would copy the src directory, Brocfile.js, broccoli-eslint.js, and build.js")
+    console.log("Would copy the src directory, Brocfile.js, and start.js")
     done();
 } else {
     console.log("writing host files");
@@ -104,9 +104,6 @@ if (dryRun) {
             buildWrapperPath);
         console.log("..wrote start.js");
     }
-    copyFile(
-        path.join(projectRoot, 'broccoli-eslint.js'),
-        path.join(hostProjectRoot, 'broccoli-eslint.js'));
     ncp(path.join(projectRoot, 'src'), path.join(hostProjectRoot, 'src'), function (error) {
         if (error) return done(error);
         console.log("..copied src directory");
